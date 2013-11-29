@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ZIvVS_lab4.Properties
+namespace Zivs_4.Properties
 {
 
 
