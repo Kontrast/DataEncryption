@@ -12,40 +12,53 @@ namespace Zivs_4
         public void GenerateTable(int size, List<int> polynom)
         {
             Ltable = new bool[size, size];
+            bool[,] ltableTemp = new bool[size, size];
 
             CtableGenerator cGenerator = new CtableGenerator();
             TtableGenerator tGenerator = new TtableGenerator();
             cGenerator.GenerateTable(size);
             tGenerator.GenerateTable(size, polynom);
 
+            bool[,] tranparentCMatirix = TransporateMatrix(cGenerator.Ctable, size);
+
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
                 {
-                    
+                    ltableTemp[i, j] = MatrixCellMultResult(size, tranparentCMatirix, tGenerator.Ttable, i, j);
+                }
+            }
+            
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    Ltable[i, j] = MatrixCellMultResult(size, ltableTemp, tranparentCMatirix, i, j);
                 }
             }
         }
 
-
-        private static int[][] ParallelMatrixMult(int size, int[][] m1, int[][] m2)
+        private bool[,] TransporateMatrix(bool[,] inputMatrix, int size)
         {
-            var result = new int[size][];
-            for (var i = 0; i < result.Length; i++)
-            {
-                result[i] = new int[result.Length];
-            }
-            Parallel.For(0, size, delegate(int i)
+            bool[,] result = new bool[size, size];
+            for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
                 {
-                    result[i][j] = m1[i][0] * m2[0][j];
-                    for (int k = 1; k < size; k++)
-                    {
-                        result[i][j] = result[i][j].Xor(m1[i][k] * m2[k][j]);
-                    }
+                    result[i, j] = inputMatrix[j, i];
                 }
-            });
+            }
+
+            return result;
+        }
+
+        private bool MatrixCellMultResult(int size, bool[,] firstMatrix, bool[,] secondMatrix, int xCoordinate, int yCoordinate)
+        {
+            bool result = firstMatrix[0, xCoordinate] && secondMatrix[yCoordinate, 0];
+            for (int i = 1; i < size; i++)
+            {
+                result = result || (firstMatrix[i, xCoordinate] && secondMatrix[yCoordinate, i]);
+            }
 
             return result;
         }
