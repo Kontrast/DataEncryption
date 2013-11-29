@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Zivs_4
 {
@@ -9,15 +7,16 @@ namespace Zivs_4
     {
         public bool[,] Ltable;
 
-        public void GenerateTable(int size, List<int> polynom)
+        public void GenerateTable(int power, List<int> polynom)
         {
+            int size = (int)Math.Pow(2, power);
             Ltable = new bool[size, size];
             bool[,] ltableTemp = new bool[size, size];
 
             CtableGenerator cGenerator = new CtableGenerator();
             TtableGenerator tGenerator = new TtableGenerator();
             cGenerator.GenerateTable(size);
-            tGenerator.GenerateTable(size, polynom);
+            tGenerator.GenerateTable(power, polynom);
 
             bool[,] tranparentCMatirix = TransporateMatrix(cGenerator.Ctable, size);
 

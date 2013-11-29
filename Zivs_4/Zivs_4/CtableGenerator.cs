@@ -31,7 +31,7 @@ namespace Zivs_4
             return ((GetFactorial(n) / (GetFactorial(k) * GetFactorial(n - k))) % 2) == 1 ? true : false;
         }
 
-        private int GetFactorial(int x)
+        private double GetFactorial(int x)
         {
             return x < 2 ? 1 : x * GetFactorial(x - 1);
         }
