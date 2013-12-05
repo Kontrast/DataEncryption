@@ -9,7 +9,7 @@ namespace Zivs_4
     {
         public static LFSRInfo GenerateAllSets(List<int> polynom, int power)
         {
-            List<bool> a0 = ToBinary(0, power);
+            List<bool> a0 = ToBinary(1, power);
             List<List<bool>> allSets = new List<List<bool>>();
             while (!allSets.Contains(a0, new SetComparer()))
             {
@@ -97,7 +97,7 @@ namespace Zivs_4
         //----------------------------------------
         private static List<bool> NextPolynomSet(List<bool> set, List<int> polynom)
         {
-            bool newVal = true;
+            bool newVal = false;
             foreach (int i in polynom)
             {
                 newVal ^= set[i - 1];
