@@ -7,8 +7,11 @@ namespace Zivs_4
     {
         public bool[,] Ltable;
 
+        private int power;
+
         public void GenerateTable(int power, List<int> polynom)
         {
+            this.power = power;
             int size = (int)Math.Pow(2, power);
             Ltable = new bool[size, size];
             bool[,] ltableTemp = new bool[size, size];
@@ -59,6 +62,18 @@ namespace Zivs_4
                 result = result || (firstMatrix[i, xCoordinate] && secondMatrix[yCoordinate, i]);
             }
 
+            return result;
+        }
+
+        public bool CheckLinearity()
+        {
+            bool result = true;
+            int rowIndex = (int)Math.Pow(2, power) - 1;
+            for (int i = 0; i < power; i++)
+            {
+                int columnIndex = (int) Math.Pow(2, i);
+                result = result && Ltable[rowIndex, columnIndex];
+            }
             return result;
         }
     }

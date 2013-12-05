@@ -14,9 +14,9 @@ namespace Zivs_4
             Ttable = new bool[size, size];
 
             LFSRInfo valueSets = LFSR.GenerateAllSets(polynom, power);
-            for (int i = 0; i < valueSets.Sets.Count-1; i++)
+            for (int i = 0; i < valueSets.Sets.Count - 1; i++)
             {
-                Ttable[GenerateIndex(valueSets.Sets[i+1]),GenerateIndex(valueSets.Sets[i])] = true;
+                Ttable[GenerateIndex(valueSets.Sets[i + 1]),GenerateIndex(valueSets.Sets[i])] = true;
             }
         }
 
