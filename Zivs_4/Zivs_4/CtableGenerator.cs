@@ -28,7 +28,7 @@ namespace Zivs_4
             {
                 return false;
             }
-            return ((GetFactorial(n) / (GetFactorial(k) * GetFactorial(n - k))) % 2) == 1 ? true : false;
+            return (Math.Round(GetFactorial(n) / (GetFactorial(k) * GetFactorial(n - k))) % 2) == 1 ? true : false;
         }
 
         private double GetFactorial(int x)

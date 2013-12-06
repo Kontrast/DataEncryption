@@ -56,19 +56,19 @@ namespace Zivs_4
 
         private bool MatrixCellMultResult(int size, bool[,] firstMatrix, bool[,] secondMatrix, int xCoordinate, int yCoordinate)
         {
-            bool result = firstMatrix[0, xCoordinate] && secondMatrix[yCoordinate, 0];
-            for (int i = 1; i < size; i++)
+            int result = 0;
+            for (int i = 0; i < size; i++)
             {
-                result = result || (firstMatrix[i, xCoordinate] && secondMatrix[yCoordinate, i]);
+                result += firstMatrix[i, xCoordinate] && secondMatrix[yCoordinate, i] ? 1 : 0;
             }
 
-            return result;
+            return result % 2 == 1;
         }
 
         public bool CheckLinearity()
         {
             bool result = true;
-            int rowIndex = (int)Math.Pow(2, power) - 1;
+            int rowIndex = power - 1;
             for (int i = 0; i < power; i++)
             {
                 int columnIndex = (int) Math.Pow(2, i);
