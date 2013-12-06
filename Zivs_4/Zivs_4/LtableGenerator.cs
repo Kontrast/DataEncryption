@@ -5,7 +5,7 @@ namespace Zivs_4
 {
     class LtableGenerator
     {
-        public bool[,] Ltable;
+        public double[,] Ltable;
 
         private int power;
 
@@ -13,15 +13,15 @@ namespace Zivs_4
         {
             this.power = power;
             int size = (int)Math.Pow(2, power);
-            Ltable = new bool[size, size];
-            bool[,] ltableTemp = new bool[size, size];
+            Ltable = new double[size, size];
+            double[,] ltableTemp = new double[size, size];
 
             CtableGenerator cGenerator = new CtableGenerator();
             TtableGenerator tGenerator = new TtableGenerator();
             cGenerator.GenerateTable(size);
             tGenerator.GenerateTable(power, polynom);
 
-            bool[,] tranparentCMatirix = TransporateMatrix(cGenerator.Ctable, size);
+            double[,] tranparentCMatirix = TransporateMatrix(cGenerator.Ctable, size);
 
             for (int i = 0; i < size; i++)
             {
@@ -40,9 +40,9 @@ namespace Zivs_4
             }
         }
 
-        private bool[,] TransporateMatrix(bool[,] inputMatrix, int size)
+        private double[,] TransporateMatrix(double[,] inputMatrix, int size)
         {
-            bool[,] result = new bool[size, size];
+            double[,] result = new double[size, size];
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
@@ -54,25 +54,32 @@ namespace Zivs_4
             return result;
         }
 
-        private bool MatrixCellMultResult(int size, bool[,] firstMatrix, bool[,] secondMatrix, int xCoordinate, int yCoordinate)
+        private double MatrixCellMultResult(int size, double[,] firstMatrix, double[,] secondMatrix, int yCoordinate, int xCoordinate)
         {
-            int result = 0;
+            double result = 0;
             for (int i = 0; i < size; i++)
             {
-                result += firstMatrix[i, xCoordinate] && secondMatrix[yCoordinate, i] ? 1 : 0;
+                result += firstMatrix[yCoordinate, i] * secondMatrix[i, xCoordinate];
             }
 
-            return result % 2 == 1;
+            return result % 2;
         }
 
         public bool CheckLinearity()
         {
             bool result = true;
-            int rowIndex = power - 1;
+            int rowIndex = (int)Math.Pow(2, power - 1);
+            List<double> twos = new List<double>();
             for (int i = 0; i < power; i++)
             {
-                int columnIndex = (int) Math.Pow(2, i);
-                result = result && Ltable[rowIndex, columnIndex];
+                twos.Add(Math.Pow(2, i));
+            }
+            for (int i = 0; i < Math.Pow(2, power); i++)
+            {
+                if (!twos.Contains(i) && Ltable[rowIndex, i] != 0)
+                {
+                    result = false;
+                }
             }
             return result;
         }

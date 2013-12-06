@@ -7,11 +7,11 @@ namespace Zivs_4
 {
     public class CtableGenerator
     {
-        public bool[,] Ctable;
+        public double[,] Ctable;
 
         public void GenerateTable(int size)
         {
-            Ctable = new bool[size, size];
+            Ctable = new double[size, size];
 
             for (int i = 0; i < size; i++)
             {
@@ -22,13 +22,13 @@ namespace Zivs_4
             }
         }
 
-        private bool GetCValue(int n, int k)
+        private double GetCValue(int n, int k)
         {
             if (k > n)
             {
-                return false;
+                return 0;
             }
-            return (Math.Round(GetFactorial(n) / (GetFactorial(k) * GetFactorial(n - k))) % 2) == 1 ? true : false;
+            return (GetFactorial(n) / (GetFactorial(k) * GetFactorial(n - k)) % 2);
         }
 
         private double GetFactorial(int x)

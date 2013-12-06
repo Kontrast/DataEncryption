@@ -6,17 +6,17 @@ namespace Zivs_4
 {
     class TtableGenerator
     {
-        public bool[,] Ttable;
+        public double[,] Ttable;
 
         public void GenerateTable(int power, List<int> polynom)
         {
             int size = (int)Math.Pow(2, power);
-            Ttable = new bool[size, size];
+            Ttable = new double[size, size];
 
             LFSRInfo valueSets = LFSR.GenerateAllSets(polynom, power);
             for (int i = 0; i < valueSets.Sets.Count - 1; i++)
             {
-                Ttable[GenerateIndex(valueSets.Sets[i + 1]),GenerateIndex(valueSets.Sets[i])] = true;
+                Ttable[GenerateIndex(valueSets.Sets[i + 1]),GenerateIndex(valueSets.Sets[i])] = 1;
             }
         }
 

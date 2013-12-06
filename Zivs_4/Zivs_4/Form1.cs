@@ -100,7 +100,7 @@ namespace Zivs_4
                 rowResult.Add(i.ToString());
                 for (int j = 0; j < size; j++)
                 {
-                    rowResult.Add(generator.Ltable[i, j] ? "1" : "0");
+                    rowResult.Add(generator.Ltable[i, j].ToString());
                 }
                 dt.Rows.Add(rowResult.ToArray());
             }
