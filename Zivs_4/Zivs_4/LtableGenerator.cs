@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Zivs_4
 {
     class LtableGenerator
     {
-        public double[,] Ltable;
+        public BigInteger[,] Ltable;
 
         private int power;
 
@@ -13,15 +14,15 @@ namespace Zivs_4
         {
             this.power = power;
             int size = (int)Math.Pow(2, power);
-            Ltable = new double[size, size];
-            double[,] ltableTemp = new double[size, size];
+            Ltable = new BigInteger[size, size];
+            BigInteger[,] ltableTemp = new BigInteger[size, size];
 
             CtableGenerator cGenerator = new CtableGenerator();
             TtableGenerator tGenerator = new TtableGenerator();
             cGenerator.GenerateTable(size);
             tGenerator.GenerateTable(power, polynom);
 
-            double[,] tranparentCMatirix = TransporateMatrix(cGenerator.Ctable, size);
+            BigInteger[,] tranparentCMatirix = TransporateMatrix(cGenerator.Ctable, size);
 
             for (int i = 0; i < size; i++)
             {
@@ -40,9 +41,9 @@ namespace Zivs_4
             }
         }
 
-        private double[,] TransporateMatrix(double[,] inputMatrix, int size)
+        private BigInteger[,] TransporateMatrix(BigInteger[,] inputMatrix, int size)
         {
-            double[,] result = new double[size, size];
+            BigInteger[,] result = new BigInteger[size, size];
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
@@ -54,9 +55,9 @@ namespace Zivs_4
             return result;
         }
 
-        private double MatrixCellMultResult(int size, double[,] firstMatrix, double[,] secondMatrix, int yCoordinate, int xCoordinate)
+        private BigInteger MatrixCellMultResult(int size, BigInteger[,] firstMatrix, BigInteger[,] secondMatrix, int yCoordinate, int xCoordinate)
         {
-            double result = 0;
+            BigInteger result = 0;
             for (int i = 0; i < size; i++)
             {
                 result += firstMatrix[yCoordinate, i] * secondMatrix[i, xCoordinate];

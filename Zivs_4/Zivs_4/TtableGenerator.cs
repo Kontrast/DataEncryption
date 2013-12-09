@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Numerics;
 
 namespace Zivs_4
 {
     class TtableGenerator
     {
-        public double[,] Ttable;
+        public BigInteger[,] Ttable;
 
         public void GenerateTable(int power, List<int> polynom)
         {
             int size = (int)Math.Pow(2, power);
-            Ttable = new double[size, size];
+            Ttable = new BigInteger[size, size];
 
             LFSRInfo valueSets = LFSR.GenerateAllSets(polynom, power);
             for (int i = 0; i < valueSets.Sets.Count - 1; i++)

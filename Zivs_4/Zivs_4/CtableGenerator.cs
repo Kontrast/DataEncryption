@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 
 namespace Zivs_4
 {
     public class CtableGenerator
     {
-        public double[,] Ctable;
+        public BigInteger[,] Ctable;
 
         public void GenerateTable(int size)
         {
-            Ctable = new double[size, size];
+            Ctable = new BigInteger[size, size];
 
             for (int i = 0; i < size; i++)
             {
@@ -22,7 +23,7 @@ namespace Zivs_4
             }
         }
 
-        private double GetCValue(int n, int k)
+        private BigInteger GetCValue(int n, int k)
         {
             if (k > n)
             {
@@ -31,7 +32,7 @@ namespace Zivs_4
             return (GetFactorial(n) / (GetFactorial(k) * GetFactorial(n - k)) % 2);
         }
 
-        private double GetFactorial(int x)
+        private BigInteger GetFactorial(int x)
         {
             return x < 2 ? 1 : x * GetFactorial(x - 1);
         }
